@@ -9,7 +9,7 @@
     1. Preparar um pequeno exemplo
 
 ---
-[Slides da apresentação]()
+[Slides da apresentação](https://github.com/felipebeskow/webSocket/blob/main/Apresentação.pdf)
 
 ----
 
