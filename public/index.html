@@ -3,7 +3,9 @@
 <head>
   <title>Chat</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <!--JQuery-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!--Lib do Socket.io-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
 </head>
 
@@ -16,23 +18,29 @@
   </form>
 
   <script type="text/javascript">
+    //conecta com o servidor
     var socket = io('http://localhost:3000');
 
+    //função para mostrar mensagens
     function renderMessage(message) {
       $('.messages').append('<div class="message"><strong>'+ message.author +'</strong>: '+ message.message +'</div>');
     }
 
+    //recebe mensagens antigas
     socket.on('previousMessages', messages =>{
       messages.forEach(message => {
         renderMessage(message);
       });
     });
 
+    //recebe novas mensagens
     socket.on('receivedMessage', message=>{
       renderMessage(message);
     });
 
+    //envia mensagens
     $('#chat').submit(event=>{
+      //evita que a pagina fique atualizando e enviando requisições http
       event.preventDefault();
 
       var author = $('input[name=username]').val();
@@ -44,6 +52,7 @@
           message
         }
 
+        //mostra a mensagem pois o broadcast não envia para o emissor
         renderMessage(messageObject);
         $('input[name=message]').val('');
 
